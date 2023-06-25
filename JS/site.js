@@ -1,37 +1,54 @@
 
 function getVal(){
 
-
     document.getElementById("alert_info").classList.add("invisible");
 
     let userString=document.getElementById("inputString").value;
 
-    let rvrsdString=reverse(userString);
+    let chkdString=Palindrome(userString);
 
-     display(rvrsdString);
+     display(chkdString);
 }
 
 
-function reverse(userString){
+function Palindrome(userString){
+       // Lowercased
+    userString= userString.toLowerCase();
+
+    //Regex
+    let regex =/[^a-z0-0]/gi;
+    userString= userString.replace(regex,"");
+
     let rvrsdString=[];
-
-    for (let i=userString.length-1 ;i>=0 ;i--) {
-     
+    let chkdString={};// Objects in JS dYNAMIC AND tYPE sAFE
+   
+    for (let index = userString.length-1; index>=0; index--) {
+       rvrsdString += userString[index];
         
-
-        // ** Most Important Line //
-        rvrsdString += userString[i];
     }
-  
-     return rvrsdString;
+
+    if (rvrsdString==userString)
+    {
+        chkdString.msg="Palindrome!"
+    }
+
+    else{
+        chkdString.msg="Nah Not A Palindrome"
+    }
+    chkdString.reversed=rvrsdString;
+
+    return chkdString;
 }
 
 
-function display(rvrsdString){
-
-    document.getElementById("msg").innerHTML=`The string reversed is ${rvrsdString}`;
 
 
+
+function display(chkdString){
+
+    document.getElementById("alert_info").innerHTML= chkdString.msg;
+    document.getElementById("msg").innerHTML = `Your Reversed Phase is ${chkdString.reversed}`;
+   
     //revome invisibility
     document.getElementById("alert_info").classList.remove("invisible");
 
